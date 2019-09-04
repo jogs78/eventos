@@ -1,0 +1,58 @@
+<?php
+
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+/*
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+*/
+
+/**
+ * Assistants
+ */
+Route::resource('assistants', 'Asistente\AssistantsController', ['only' => ['index','show']]);
+Route::resource('assistants.events', 'Asistente\AssistantEventController', ['only' => ['index']]);
+Route::resource('assistants.subevents', 'Asistente\AssistantSubeventController', ['only' => ['index']]);
+/**
+ * Collaborators
+ */
+Route::resource('collaborators', 'Colaborador\CollaboratorController', ['only' => ['index','show']]);
+Route::resource('collaborators.subevents', 'Colaborador\CollaboratorSubeventController', ['only' => ['index']]);
+Route::resource('collaborators.events', 'Colaborador\CollaboratorEventController', ['only' => ['index']]);
+/**
+ * Events
+ */
+Route::resource('events', 'Evento\EventController', ['parameters' => ['event' => 'evento']],['except' => ['create','edit']]);
+Route::resource('events.subevents', 'Evento\EventSubeventController', ['except' => ['create','edit']]);
+Route::resource('events.assistants', 'Evento\EventAssistantController', ['except' => ['create','edit']]);
+Route::resource('events.organizers', 'Evento\EventOrganizerController', ['only' => ['index']]);
+/**
+ * Organizers
+ */
+Route::resource('organizers', 'Organizador\OrganizerController', ['only' => ['index','show']]);
+Route::resource('organizers.events', 'Organizador\OrganizerEventController', ['only' => ['index','show']]);
+/**
+ * Subevents
+ */
+Route::resource('subevents', 'Subevento\SubeventController', ['except' => ['create','edit']]);
+Route::resource('subevents.assistants', 'Subevento\SubeventAssistantController', ['except' => ['create','edit']]);
+Route::resource('subevents.collaborators', 'Subevento\SubeventCollaboratorController', ['except' => ['create','edit', 'store']]);
+/**
+ * Users
+ */
+Route::resource('users', 'User\UserController', ['except' => ['create','edit']]);
+Route::name('verify')->get('users/verify/{token}', 'User\UserController@verify');
+Route::name('resend')->get('users/{user}/resend', 'User\UserController@resend');
+Route::name('mail')->post('users/{user}/mail', 'User\UserController@sendMail');
