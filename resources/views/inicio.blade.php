@@ -11,6 +11,7 @@
 	<script src="{{ asset('/js/evento.js') }}"></script>
 	<script src="{{ asset('/js/subevento.js') }}"></script>
 	<script src="{{ asset('/js/asistente.js') }}"></script>
+	<script src="{{ asset('/js/colaborador.js') }}"></script>
 @endpush
 
 @section('contenido')
