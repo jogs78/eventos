@@ -12,7 +12,7 @@ class CollaboratorPolicy
     use HandlesAuthorization, AdminActions;
 
     /**
-     * Determine whether the user can view the colaborador.
+     * Determina si el usuario actual puede ver el colaborador.
      *
      * @param  \App\User  $user
      * @param  \App\Colaborador  $colaborador

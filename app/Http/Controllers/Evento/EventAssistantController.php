@@ -28,7 +28,6 @@ class EventAssistantController extends ApiController
         $this->middleware('can:eliminarAsistente,event,assistant')->only(['destroy']);
 
         $this->middleware('can:enviarMensajeAsistente,event')->only(['sendMail']);
-
     }
 
     /**

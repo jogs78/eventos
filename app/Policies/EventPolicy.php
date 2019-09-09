@@ -154,7 +154,7 @@ class EventPolicy
     }
 
     /**
-     * Determine whether the user can deleteSubevent the event.
+     * Determine si el usuario tiene opcion de listar Asistentes al evento.
      *
      * @param  \App\User  $user
      * @param  \App\Evento  $event
@@ -162,9 +162,22 @@ class EventPolicy
      */
     public function listarAsistentes(User $user, Evento $event)
     {
-        return $user->id === $event->organizador_id;
-    }
+        $ret = false;
+        //Si es el organizador del evento
+        if($user->id === $event->organizador_id)
+        {
+            $ret = true;            
+        }else{
+            //Si es colaborador del evento
+            $colaborador = Colaborador::find($user->id);
+            $subs = $colaborador->subeventos()->get();
+            foreach ($subs as $sub) {
+                if ($sub->evento_id  === $event->id ) $ret = true;
+            }
+        }
+        return $ret;
 
+    }
     /**
      * Determine whether the user can deleteSubevent the event.
      *
@@ -174,11 +187,19 @@ class EventPolicy
      */
     public function verAsistente(User $user, Evento $event, Asistente $assistant)
     {
+        $ret = false;
         if($user->id === $event->organizador_id || $user->id === $assistant->id){
-            return true;
+            $ret = true;
+        }else{
+            //Si es colaborador del evento
+            $colaborador = Colaborador::find($user->id);
+            $subs = $colaborador->subeventos()->get();
+            foreach ($subs as $sub) {
+                if ($sub->evento_id  === $event->id ) $ret = true;
+            }
         }
 
-        return false;
+        return $ret;
     }
 
 
@@ -191,7 +212,21 @@ class EventPolicy
      */
     public function actualizarAsistente(User $user, Evento $event)
     {
-        return $user->id === $event->organizador_id;
+
+        //return $user->id === $event->organizador_id;
+        $ret = false;
+        if($user->id === $event->organizador_id ){
+            $ret = true;
+        }else{
+            //Si es colaborador del evento
+            $colaborador = Colaborador::find($user->id);
+            $subs = $colaborador->subeventos()->get();
+            foreach ($subs as $sub) {
+                if ($sub->evento_id  === $event->id ) $ret = true;
+            }
+        }
+
+        return $ret;
     }
 
     /**

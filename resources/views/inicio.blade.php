@@ -333,7 +333,7 @@ function cargarSubeventos(btn, eventoClave, eventoPrecioInscripcion, eventoOrgan
 							'<div class="row w3-padding-small">'+
 
 								'<div class="col-sm-6 w3-padding">'+
-
+//aqui se carga mas informacion
 									'<button class="btn btn-primary btn-block" name="btnVerMasSubevento" onclick="modalSubevento('+subevento.clave+','+eventoClave+')" >Más información</button>'+
 
 								'</div>'+

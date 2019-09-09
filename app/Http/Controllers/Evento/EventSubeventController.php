@@ -17,7 +17,6 @@ class EventSubeventController extends ApiController
         parent::__construct();
 
         $this->middleware('transform.input:' . SubeventTransformer::class)->only(['store', 'update']);
-        
         $this->middleware('can:agregarSubevento,event')->only(['store']);
         $this->middleware('can:actualizarSubevento,event')->only(['update']);
         $this->middleware('can:eliminarSubevento,event')->only(['destroy']);

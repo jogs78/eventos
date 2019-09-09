@@ -148,7 +148,7 @@
                     );
 
                     //evento.precioInscripcion != null && esOrganizador
-                    if(esOrganizador){
+                    if(esOrganizador || esColaborador){
                         $("#contenedor"+evento.clave)
                             .find(".row").children().first()
                             .removeClass("col-sm-6")

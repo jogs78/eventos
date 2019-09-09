@@ -335,7 +335,8 @@ function mostrarModalSubevento(evento, subevento){
     );
 }
 
-function modalSubevento(claveEvento, claveSubevento){
+//function modalSubevento(claveEvento, claveSubevento){
+function modalSubevento(claveSubevento, claveEvento){    
     cargarEvento(claveEvento, 
         (function(result){
             const evento = result.data;
